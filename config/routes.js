@@ -12,6 +12,11 @@ router.get('/blog', function (req, res, next) {
   knex('posts').select().then(post => res.json(post))
 });
 
+//USERS - Get All Testimonials
+router.get('/testimonials', function (req, res, next) {
+  knex('testimonials').select().then(testimonial => res.json(testimonial))
+});
+
 //ADMIN - Get All Blog Posts
 router.get('/admin/blog', function (req, res, next) {
   knex('posts').select().then(post => res.json(post))
