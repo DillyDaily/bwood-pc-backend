@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex');
 
-//Get Home Page
+//USER - Get Home Page
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
   });
@@ -22,6 +22,11 @@ router.get('/admin/blog', function (req, res, next) {
   knex('posts').select().then(post => res.json(post))
 });
 
+//ADMIN - Get All Messages
+router.get('/admin/messages', function (req, res, next) {
+  knex('messages').select().then(message => res.json(message))
+});
+
 //Get One Blog Post
 router.get('/blog/:id', function (req, res) {
   knex('posts').select().where('id', req.params.id).then(post => res.json(post))
@@ -31,6 +36,12 @@ router.get('/blog/:id', function (req, res) {
 router.post('/admin/blog/new', function (req, res) {
   knex('posts').insert(req.body).then(() => {
     knex('posts').select().then(posts => res.json(posts))
+  });
+});
+//USER - Send a Message
+router.post('/contact', function (req, res) {
+  knex('messages').insert(req.body).then(() => {
+    knex('messages').select().then(message => res.json(message))
   });
 });
 
