@@ -59,5 +59,12 @@ router.delete('/delete/blog/:id', function (req, res) {
   });
 });
 
+//Delete One Message
+router.delete('/delete/message/:id', function (req, res) {
+  knex('messages').del().where('id', req.params.id).then(function () {
+    knex('messages').select().then(messages => res.json(messages))
+  });
+});
+
 
 module.exports = router;
